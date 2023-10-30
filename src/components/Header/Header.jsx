@@ -15,7 +15,7 @@ export const Header = () => {
           <Logo />
           <Heading />
           <Search />
-          <Auth />
+          <Auth auth={false}/>
         </div>
       </Layout>
 

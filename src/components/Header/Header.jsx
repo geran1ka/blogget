@@ -7,18 +7,16 @@ import Search from './Search';
 import Auth from './Auth';
 
 
-export const Header = () => {
-  return (
-    <header className={style.header}>
-      <Layout>
+export const Header = () => (
+  <header className={style.header}>
+    <Layout>
       <div className={style.gridContainer}>
-          <Logo />
-          <Heading />
-          <Search />
-          <Auth auth={false}/>
-        </div>
-      </Layout>
+        <Logo />
+        <Heading text='Главная'/>
+        <Search />
+        <Auth auth={false}/>
+      </div>
+    </Layout>
 
-    </header>
-  )
-}
+  </header>
+);

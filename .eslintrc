@@ -16,6 +16,7 @@
     "no-loop-func": ["error"],
     "eqeqeq": ["error", "always"],
     "strict": ["error", "global"],
+    "require-jsdoc" : 0,
     "max-nested-callbacks": [
       "error",
       {
@@ -136,7 +137,7 @@
     "max-len": [
       "error",
       {
-        "code": 80,
+        "code": 120,
         "tabWidth": 2,
         "ignoreUrls": true,
         "ignorePattern": "goog.(module|require)"

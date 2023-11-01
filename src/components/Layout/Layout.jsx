@@ -9,7 +9,14 @@ export const Layout = ({children}) => (
 );
 
 Layout.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
+// Layout.propTypes = {
+//   children: PropTypes.oneOfType([
+//     PropTypes.array,
+//     PropTypes.element,
+//     PropTypes.string,
+//   ])
+// };
 

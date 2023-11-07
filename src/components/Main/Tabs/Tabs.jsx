@@ -9,6 +9,7 @@ import {ReactComponent as HomeIcon} from './img/home.svg';
 import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as TopIcon} from './img/top.svg';
 import {debounceRaf} from '../../../utils/debounce';
+import {Text} from '../../../UI/Text';
 
 const LIST = [
   {value: 'Главная', Icon: HomeIcon},
@@ -61,7 +62,7 @@ export const Tabs = () => {
                 setItemName(value);
               }}
             >
-              {value}
+              <Text >{value}</Text>
               {Icon && <Icon width={30} height={30}/>}
             </button>
           </li>

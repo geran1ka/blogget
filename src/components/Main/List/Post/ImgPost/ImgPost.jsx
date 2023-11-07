@@ -7,5 +7,5 @@ export const ImgPost = ({thumbnail}) => (
 );
 
 ImgPost.propTypes = {
-  thumbnail: PropTypes.img,
+  thumbnail: PropTypes.string,
 };

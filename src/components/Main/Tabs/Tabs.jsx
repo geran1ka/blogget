@@ -20,6 +20,7 @@ const LIST = [
 export const Tabs = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isDropDown, setIsDropDown] = useState(true);
+  const [itemName, setItemName] = useState('Главная');
   const hadleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropDown(true);
@@ -45,7 +46,7 @@ export const Tabs = () => {
             className={style.btn}
             onClick={() => setIsDropDownOpen(!isDropDownOpen)}
           >
-          addItem
+            {itemName}
             <ArrowIcon width={15} height={15}/>
           </button>
         </div>
@@ -57,7 +58,7 @@ export const Tabs = () => {
             <button
               className={style.btn}
               onClick={() => {
-                console.log(value);
+                setItemName(value);
               }}
             >
               {value}

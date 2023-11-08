@@ -62,7 +62,7 @@ export const Tabs = () => {
                 setItemName(value);
               }}
             >
-              <Text >{value}</Text>
+              <Text>{value}</Text>
               {Icon && <Icon width={30} height={30}/>}
             </button>
           </li>

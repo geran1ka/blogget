@@ -26,8 +26,6 @@ export const Text = prop => {
     {[style[`fsd${dsize}`]]: dsize},
   );
 
-  console.log(classes);
-
   return (
     <As className={classes} href={href}>{children}</As>
   );
@@ -44,6 +42,7 @@ Text.propTypes = {
     PropTypes.string,
     PropTypes.object,
     PropTypes.array,
+    PropTypes.number,
   ]),
   href: PropTypes.string,
   center: PropTypes.bool,

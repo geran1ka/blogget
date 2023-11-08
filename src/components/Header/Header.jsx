@@ -5,18 +5,24 @@ import Logo from './Logo';
 import Heading from './Heading';
 import Search from './Search';
 import Auth from './Auth';
+import PropTypes from 'prop-types';
 
 
-export const Header = () => (
+export const Header = ({token}) => (
   <header className={style.header}>
     <Layout>
       <div className={style.gridContainer}>
         <Logo />
         <Heading text='Главная'/>
         <Search />
-        <Auth auth={false}/>
+        <Auth token={token}/>
       </div>
     </Layout>
 
   </header>
 );
+
+Header.propTypes = {
+  token: PropTypes.string,
+};
+

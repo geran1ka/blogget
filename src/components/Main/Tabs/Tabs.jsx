@@ -25,6 +25,7 @@ export const Tabs = () => {
   const hadleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropDown(true);
+      setIsDropDownOpen(false);
     } else {
       setIsDropDown(false);
     }
@@ -53,7 +54,9 @@ export const Tabs = () => {
         </div>
       )}
 
-      <ul className={style.list} onClick={() => setIsDropDownOpen(false)}>
+      <ul className={style.list} onClick={() => {
+        setIsDropDownOpen(false);
+      }}>
         {(isDropDownOpen || !isDropDown) && LIST.map(({value, id, Icon}) => (
           <li className={style.item} key={id}>
             <button

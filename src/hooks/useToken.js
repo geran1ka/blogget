@@ -5,10 +5,10 @@ export const useToken = (state) => {
 
   useEffect(() => {
     if (location.pathname.includes('/auth')) {
-      console.log('tok');
       const token = new URLSearchParams(location.hash.substring(1))
         .get('access_token');
       setToken(token);
+      window.location.assign(window.location.origin);
     }
     if (localStorage.getItem('bearer')) {
       setToken(localStorage.getItem('bearer'));
@@ -21,5 +21,9 @@ export const useToken = (state) => {
     }
   }, [token]);
 
-  return [token];
+  const delToken = () => {
+    setToken(localStorage.removeItem('bearer'));
+  };
+
+  return [token, delToken];
 };

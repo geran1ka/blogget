@@ -6,8 +6,9 @@ import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text/Text';
 import {URL_API} from '../../../api/const';
 
-export const Auth = ({token}) => {
+export const Auth = ({token, delToken}) => {
   const [auth, setAuth] = useState({});
+  const [isLogoutVisible, setIsLogoutVisible] = useState(false);
 
   useEffect(() => {
     if (!token) return;
@@ -16,25 +17,26 @@ export const Auth = ({token}) => {
         Authorization: `bearer ${token}`,
       },
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('data', data);
-        return data;
+      .then(response => {
+        if (response.status === 401) {
+          delToken();
+        }
+        return response.json();
       })
       .then(({name, icon_img: iconImg}) => {
         const img = iconImg.replace(/\?.*$/, '');
         setAuth({name, img});
       })
       .catch((err) => {
-        console.err();
+        console.error();
         setAuth({});
       });
-  }, [token]);
+  }, [token, delToken]);
 
   return (
     <div className={style.container}>
       {auth.name ? (
-        <button className={style.btn}>
+        <button className={style.btn} onClick={() => setIsLogoutVisible(!isLogoutVisible)}>
           <img
             className={style.img}
             src={auth.img}
@@ -47,10 +49,21 @@ export const Auth = ({token}) => {
         <LoginIcon className={style.svg} />
       </Text>
     )}
+      { isLogoutVisible &&
+        < button
+          className={style.logout}
+          onClick={() => {
+            setIsLogoutVisible(false);
+            setAuth({});
+            delToken();
+          }}
+        >Выйти</button> }
+
     </div>
   );
 };
 
 Auth.propTypes = {
   token: PropTypes.string,
+  delToken: PropTypes.func,
 };

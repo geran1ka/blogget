@@ -28,5 +28,7 @@ export const useAuth = (token, delToken) => {
       });
   }, [token, delToken]);
 
-  return [auth, setAuth];
+  const delAuth = () => setAuth({});
+
+  return [auth, delAuth];
 };

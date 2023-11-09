@@ -8,7 +8,7 @@ import {useAuth} from '../../../hooks/useAuth';
 
 export const Auth = ({token, delToken}) => {
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
-  const [auth, setAuth] = useAuth(token, delToken);
+  const [auth, delAuth] = useAuth(token, delToken);
 
   return (
     <div className={style.container}>
@@ -31,7 +31,7 @@ export const Auth = ({token, delToken}) => {
           className={style.logout}
           onClick={() => {
             setIsLogoutVisible(false);
-            setAuth({});
+            delAuth();
             delToken();
           }}
         >Выйти</button> }

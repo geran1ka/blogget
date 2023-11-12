@@ -4,26 +4,22 @@ export const useToken = (state) => {
   const [token, setToken] = useState(state);
 
   useEffect(() => {
+    if (token) return;
+
     if (location.pathname.includes('/auth')) {
       const token = new URLSearchParams(location.hash.substring(1))
         .get('access_token');
       setToken(token);
-      window.location.assign(window.location.origin);
+      localStorage.setItem('bearer', token);
+      window.location.origin;
     }
     if (localStorage.getItem('bearer')) {
       setToken(localStorage.getItem('bearer'));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('bearer', token);
     }
   }, [token]);
 
   const delToken = () => {
     setToken(localStorage.removeItem('bearer'));
   };
-
   return [token, delToken];
 };

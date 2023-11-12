@@ -1,19 +1,30 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import style from './Auth.module.css';
-import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text/Text';
-import {useAuth} from '../../../hooks/useAuth';
+import {tokenContext} from '../../../context/tocenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
-  const [isLogoutVisible, setIsLogoutVisible] = useState(false);
-  const [auth, setAuth] = useAuth(token, delToken);
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
+  const [showLogout, setShowLogout] = useState(false);
+  const {auth, clearAuth} = useContext(authContext);
+
+  const getOut = () => {
+    setShowLogout(!showLogout);
+  };
+
+  const logOut = () => {
+    setShowLogout(false);
+    delToken();
+    clearAuth();
+  };
 
   return (
     <div className={style.container}>
       {auth.name ? (
-        <button className={style.btn} onClick={() => setIsLogoutVisible(!isLogoutVisible)}>
+        <button className={style.btn} onClick={getOut}>
           <img
             className={style.img}
             src={auth.img}
@@ -26,21 +37,8 @@ export const Auth = ({token, delToken}) => {
         <LoginIcon className={style.svg} />
       </Text>
     )}
-      { isLogoutVisible &&
-        < button
-          className={style.logout}
-          onClick={() => {
-            setIsLogoutVisible(false);
-            setAuth({});
-            delToken();
-          }}
-        >Выйти</button> }
-
+      { showLogout &&
+        < button className={style.logout} onClick={logOut} >Выйти</button> }
     </div>
   );
-};
-
-Auth.propTypes = {
-  token: PropTypes.string,
-  delToken: PropTypes.func,
 };

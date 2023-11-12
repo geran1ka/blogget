@@ -1,8 +1,11 @@
 import React from 'react';
 import style from './List.module.css';
 import Post from './Post';
+import {usePost} from '../../../hooks/usePost';
 
 export const List = () => {
+  const [post] = usePost([]);
+  console.log('post: ', post);
   const postData = [
     {
       thumbnail: '',

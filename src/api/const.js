@@ -1,5 +1,6 @@
 export const URL_API = 'https://oauth.reddit.com';
 export const URL_AUTH = 'https://www.reddit.com/api/v1/authorize?';
+export const URL_POST = 'https://www.reddit.com';
 export const CLIENT_ID = 'MdJXJvPMcBsutquP7IwpGA';
 export const RESPONSE_TYPE = 'token';
 export const RANDOM_STRING = 'rendom_string';

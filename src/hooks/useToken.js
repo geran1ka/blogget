@@ -9,9 +9,11 @@ export const useToken = (state) => {
     if (location.pathname.includes('/auth')) {
       const token = new URLSearchParams(location.hash.substring(1))
         .get('access_token');
+      console.log(token);
       setToken(token);
       localStorage.setItem('bearer', token);
-      window.location.origin;
+
+      // window.location.assign(window.location.origin);
     }
     if (localStorage.getItem('bearer')) {
       setToken(localStorage.getItem('bearer'));

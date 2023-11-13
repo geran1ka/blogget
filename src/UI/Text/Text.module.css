@@ -1,13 +1,13 @@
-.bold {
-  font-weight: 700;
+.center {
+  text-align: center;
 }
 
 .medium {
   font-weight: 500;
 }
 
-.center {
-  text-align: center;
+.bold {
+  font-weight: 700;
 }
 
 .black {

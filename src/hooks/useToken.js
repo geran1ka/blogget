@@ -9,11 +9,9 @@ export const useToken = (state) => {
     if (location.pathname.includes('/auth')) {
       const token = new URLSearchParams(location.hash.substring(1))
         .get('access_token');
-      console.log(token);
       setToken(token);
       localStorage.setItem('bearer', token);
-
-      // window.location.assign(window.location.origin);
+      setTimeout(() => window.location.assign(window.location.origin), 500);
     }
     if (localStorage.getItem('bearer')) {
       setToken(localStorage.getItem('bearer'));

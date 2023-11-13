@@ -4,30 +4,26 @@ import {tokenContext} from '../context/tocenContext';
 
 
 export const usePost = () => {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState([]);
   const {token} = useContext(tokenContext);
 
   useEffect(() => {
+    if (!token) return;
+
     fetch(`${URL_API}/best`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
     })
-      .then(response => {
-        if (response.status === 401) {
-          // eslint-disable-next-line space-unary-ops
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then((data) => {
-        console.log('data: ', data);
+        setPost(data.data.children);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [token]);
 
 
-  return [post, setPost];
+  return [post];
 };

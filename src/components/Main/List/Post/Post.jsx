@@ -9,14 +9,15 @@ import {Time} from './Time/Time';
 import {BtnDel} from './BtnDel/BtnDel';
 
 export const Post = ({postData}) => {
-  const {thumbnail, title, author, ups, created: date} = postData;
+  console.log('postData: ', postData);
+  const {thumbnail, title, author, ups, selftext: markdown, created: date} = postData;
   return (
     <li className={style.post}>
       <ImgPost thumbnail={
         thumbnail.match(/([^\s]+(?=\.(jpg|jpeg))\.\2)/) ?
         thumbnail : notphoto
-      } />
-      <Content title={title} author={author}/>
+      } title={title}/>
+      <Content title={title} author={author} markdown={markdown}/>
       <Rating ups={ups} />
       <Time date={date} />
       <BtnDel />

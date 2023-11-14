@@ -11,7 +11,7 @@ export const useToken = (state) => {
         .get('access_token');
       setToken(token);
       localStorage.setItem('bearer', token);
-      setTimeout(() => window.location.assign(window.location.origin), 500);
+      setTimeout(() => window.location.assign(window.location.origin), 1000);
     }
     if (localStorage.getItem('bearer')) {
       setToken(localStorage.getItem('bearer'));

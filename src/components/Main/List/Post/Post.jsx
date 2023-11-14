@@ -10,14 +10,15 @@ import {BtnDel} from './BtnDel/BtnDel';
 
 export const Post = ({postData}) => {
   console.log('postData: ', postData);
-  const {thumbnail, title, author, ups, selftext: markdown, created: date} = postData;
+  const {thumbnail, title, author, ups, selftext: markdown, created: date, id} = postData;
+
   return (
     <li className={style.post}>
       <ImgPost thumbnail={
         thumbnail.match(/([^\s]+(?=\.(jpg|jpeg))\.\2)/) ?
         thumbnail : notphoto
       } title={title}/>
-      <Content title={title} author={author} markdown={markdown}/>
+      <Content title={title} author={author} markdown={markdown} id={id}/>
       <Rating ups={ups} />
       <Time date={date} />
       <BtnDel />

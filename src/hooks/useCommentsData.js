@@ -4,7 +4,7 @@ import {tokenContext} from '../context/tocenContext';
 
 
 export const useCommentsData = (id) => {
-  const [comment, setComment] = useState([]);
+  const [commentsData, setCommentsData] = useState([]);
   const {token} = useContext(tokenContext);
 
   useEffect(() => {
@@ -15,20 +15,42 @@ export const useCommentsData = (id) => {
       return;
     }
 
+    console.log('Запрос');
+
     fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
     })
-      .then(response => response.json())
-      .then((data) => {
-        setComment(data[0].data.children[0].data);
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error(response.status);
+        }
+        return response.json();
       })
+      .then(
+        ([
+          {
+            data: {
+              children: [{data: post}],
+            },
+          },
+          {
+            data: {
+              children,
+            },
+          },
+        ]) => {
+          const comments = children.map(item => item.data);
+
+          setCommentsData([post, comments]);
+        },
+      )
       .catch((err) => {
         console.error(err);
       });
   }, [token, id]);
 
 
-  return [comment, setComment];
+  return [commentsData];
 };

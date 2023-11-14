@@ -9,7 +9,6 @@ import {Time} from './Time/Time';
 import {BtnDel} from './BtnDel/BtnDel';
 
 export const Post = ({postData}) => {
-  console.log('postData: ', postData);
   const {thumbnail, title, author, ups, selftext: markdown, created: date, id} = postData;
 
   return (

@@ -5,12 +5,17 @@ import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useCommentsData} from '../../hooks/useCommentsData';
+import {Text} from '../../UI/Text/Text';
+import {FormComment} from './FormComment/FormComment';
+import {Comments} from './Comments/Comments';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
-  const [{author, title}] = useCommentsData(id);
+  const [commentsData] = useCommentsData(id);
+  console.log('commentsData: ', commentsData);
+  const comments = commentsData[1];
+  const post = commentsData[0];
 
-  // const {} = comment[0].data.children[0].data;
   const hadleClick = (e) => {
     const target = e.target;
 
@@ -35,24 +40,28 @@ export const Modal = ({id, closeModal}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        <h2 className={style.title}>{title}</h2>
-        <div className={style.content}>
-          <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
+        {post ?
+          <>
+            <h2 className={style.title}>{post?.title}</h2><div className={style.content}>
+              <Markdown options={{
+                overrides: {
+                  a: {
+                    props: {
+                      target: '_blank',
+                    },
+                  },
                 },
-              },
-            },
-          }}>
-            {id}
-          </Markdown>
-        </div>
-        <p className={style.author}>{author}</p>
-        <button className={style.button}>
-          <CloseIcon />
-        </button>
+              }}>
+                {post?.selftext}
+              </Markdown>
+            </div>
+            <Text As='p' className={style.author}>{post?.author}</Text>
+            <FormComment /><Comments comments={comments} />
+            <button className={style.close}>
+              <CloseIcon />
+            </button>
+          </> : (<h2>Идет загрузка...</h2>)
+        }
       </div>
     </div>,
     document.getElementById('modal-root'),

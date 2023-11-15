@@ -20,22 +20,5 @@ function App() {
     </TokenContextProvider>
   );
 }
-// import React, {useRef} from 'react';
-
-// const App = () => {
-//   const inputRef = useRef(null);
-//   const handlerSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(inputRef.current.value);
-//   };
-
-
-//   return (
-//     <form onSubmit={handlerSubmit} style={{padding: '50px'}}>
-//       <input ref={inputRef} style={{marginRight: '20px'}} />
-//       <button>log</button>
-//     </form>
-//   );
-// };
 
 export default App;

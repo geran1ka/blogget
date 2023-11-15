@@ -12,16 +12,14 @@ import {Comments} from './Comments/Comments';
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
   const [commentsData] = useCommentsData(id);
-  console.log('commentsData: ', commentsData);
   const comments = commentsData[1];
   const post = commentsData[0];
 
   const hadleClick = (e) => {
     const target = e.target;
-
     if (
       target === overlayRef.current ||
-        target.closest('button') ||
+        target.closest('path') ||
         e.keyCode === 27
     ) {
       closeModal();
@@ -56,7 +54,8 @@ export const Modal = ({id, closeModal}) => {
               </Markdown>
             </div>
             <Text As='p' className={style.author}>{post?.author}</Text>
-            <FormComment /><Comments comments={comments} />
+            <FormComment />
+            <Comments comments={comments} />
             <button className={style.close}>
               <CloseIcon />
             </button>

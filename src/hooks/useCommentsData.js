@@ -15,8 +15,6 @@ export const useCommentsData = (id) => {
       return;
     }
 
-    console.log('Запрос');
-
     fetch(`${URL_API}/comments/${id}`, {
       headers: {
         Authorization: `bearer ${token}`,

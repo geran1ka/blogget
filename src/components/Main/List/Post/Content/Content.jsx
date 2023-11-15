@@ -17,7 +17,6 @@ export const Content = ({title, author, id}) => {
           className={style.linkPost}
           href='#post'
           onClick={() => {
-            console.log('modal');
             setIsModalOpen(true);
           }}
         >

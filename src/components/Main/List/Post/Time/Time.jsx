@@ -5,7 +5,7 @@ import formatDate from '../../../../../utils/formatDate.js';
 
 
 export const Time = ({date}) => (
-  <time className={style.date} dateTime={date}>{formatDate(date)}</time>
+  date && <time className={style.date} dateTime={date}>{formatDate(date)}</time>
 );
 
 Time.propTypes = {

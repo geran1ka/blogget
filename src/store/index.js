@@ -14,6 +14,11 @@ export const updateComment = comment => ({
   comment,
 });
 
+export const deleteToken = () => ({
+  type: DELETE_TOKEN,
+  token: ''
+});
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_COMMENT:

@@ -1,42 +1,18 @@
-import {useState, useEffect} from 'react';
-import {URL_API} from '../api/const';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteToken} from '../store';
+import {authLogout, authRequestAsync} from '../store/auth/action';
+
 
 export const useAuth = () => {
-  const token = useSelector(state => state.token);
-  console.log('token: ', token);
+  const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
-  const [auth, setAuth] = useState({});
-
-
+  const loading = useSelector(state => state.auth.loading);
+  const auth = useSelector(state => state.auth.data);
   useEffect(() => {
-    if (!token) return;
-
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.status === 401) {
-          // eslint-disable-next-line space-unary-ops
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
-      .then(({name, icon_img: iconImg}) => {
-        const img = iconImg.replace(/\?.*$/, '');
-        setAuth({name, img});
-      })
-      .catch((err) => {
-        console.error(err);
-        setAuth({});
-        dispatch(deleteToken());
-      });
+    dispatch(authRequestAsync());
   }, [token]);
 
-  const clearAuth = () => setAuth({});
+  const clearAuth = () => dispatch(authLogout());
 
-  return [auth, clearAuth];
+  return [auth, loading, clearAuth];
 };

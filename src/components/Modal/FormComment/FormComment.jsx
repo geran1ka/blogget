@@ -2,11 +2,14 @@ import React, {useRef, useState} from 'react';
 import style from './FormComment.module.css';
 import {Text} from '../../../UI/Text/Text';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateComment} from '../../../store';
+import {updateComment} from '../../../store/commentReducer';
+import {useAuth} from '../../../hooks/useAuth';
 
 export const FormComment = () => {
-  const value = useSelector(state => state.comment);
+  const value = useSelector(state => state.comment.comment);
   const dispatch = useDispatch();
+
+  const [auth] = useAuth();
 
   const textareaRef = useRef(null);
   const [isFormCommentOpen, setIsFormCommentOpen] = useState(false);
@@ -30,7 +33,9 @@ export const FormComment = () => {
     <form className={style.form} onSubmit={handleSubmit}>
       {isFormCommentOpen &&
     <>
-      <Text As='h3' size={14} tsize={18}>Имя авторизированного пользователя</Text>
+      <Text As='h3' size={14} tsize={18}>
+        {auth.name}
+      </Text>
       <textarea className={style.textarea} onChange={handleChange} ref={textareaRef} value={value}></textarea>
     </>
       }

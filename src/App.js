@@ -1,6 +1,5 @@
 import Header from './components/Header';
 import Main from './components/Main';
-import {PostContextProvider} from './context/postContext';
 import {useDispatch} from 'react-redux';
 
 import {getToken} from './api/token';
@@ -13,10 +12,11 @@ const App = () => {
   dispatch(updateToken(getToken()));
 
   return (
-    <PostContextProvider>
+    <>
       <Header />
       <Main />
-    </PostContextProvider>
+    </>
+
   );
 };
 

@@ -1,18 +1,15 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import style from './List.module.css';
 import Post from './Post';
-import {postCoontext} from '../../../context/postContext';
+import {usePosts} from '../../../hooks/usePosts';
 
 export const List = () => {
-  const {post} = useContext(postCoontext);
+  const [posts] = usePosts();
   return (
     <ul className={style.list}>
-      {
-        post.map((postData) => {
-          const {data} = postData;
-          return <Post key={data.id} postData={data} />;
-        })
-      }
+      {posts && (
+        posts.map(({data}) => <Post key={data.id} postData={data} />)
+      )}
     </ul>
   );
 };

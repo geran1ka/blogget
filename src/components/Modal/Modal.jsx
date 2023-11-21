@@ -10,10 +10,11 @@ import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
 
 export const Modal = ({id, closeModal}) => {
+  console.log('id: ', id);
   const overlayRef = useRef(null);
-  const [commentsData] = useCommentsData(id);
-  const comments = commentsData[1];
-  const post = commentsData[0];
+  const [comments, post] = useCommentsData(id);
+  console.log('post: ', post);
+  console.log('comments: ', comments);
 
   const hadleClick = (e) => {
     const target = e.target;

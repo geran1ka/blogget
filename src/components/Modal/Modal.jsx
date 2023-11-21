@@ -8,10 +8,11 @@ import {useCommentsData} from '../../hooks/useCommentsData';
 import {Text} from '../../UI/Text/Text';
 import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
+import {PostLoader} from '../../UI/PostLoader/PostLoader';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
-  const [post, comments] = useCommentsData(id);
+  const [post, comments, status] = useCommentsData(id);
   const hadleClick = (e) => {
     const target = e.target;
     if (
@@ -35,7 +36,9 @@ export const Modal = ({id, closeModal}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        {post ?
+        {status === 'loading' && (<PostLoader />)}
+        {status === 'error' && 'Ошибка...'}
+        {status === 'loaded' && (
           <>
             <h2 className={style.title}>{post?.title}</h2><div className={style.content}>
               <Markdown options={{
@@ -56,8 +59,8 @@ export const Modal = ({id, closeModal}) => {
             <button className={style.close}>
               <CloseIcon />
             </button>
-          </> : (<h2>Идет загрузка...</h2>)
-        }
+          </>
+        )}
       </div>
     </div>,
     document.getElementById('modal-root'),

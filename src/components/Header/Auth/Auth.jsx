@@ -6,7 +6,7 @@ import {Text} from '../../../UI/Text/Text';
 import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
-import {AuthLoader} from './AuthLoader/AuthLoader';
+import AuthLoader from '../../../UI/AuthLoader';
 
 export const Auth = () => {
   const dispatch = useDispatch();

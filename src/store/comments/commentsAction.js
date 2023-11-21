@@ -21,10 +21,13 @@ export const commentsRequestError = (error) => ({
   error,
 });
 
+export const commentsUpdate = (comment) => ({
+  type: COMMENTS_UPDATE,
+  comment,
+});
+
 export const commentsRequestAsync = (id) => (dispatch, getState) => {
-  console.log('id: As', id);
   const token = getState().token.token;
-  console.log('commentsRequestAsync');
   if (!token) return;
   dispatch(commentsRequest());
   axios(`${URL_API}/comments/${id}`, {
@@ -32,24 +35,28 @@ export const commentsRequestAsync = (id) => (dispatch, getState) => {
       Authorization: `bearer ${token}`,
     },
   })
-    .then(
-      ({
-        data: [
-          {
-            data: {
-              children: [{data: post}],
-            },
-          },
-          {
-            data: {
-              children,
-            },
-          },
-        ]
-      }) => {
-        const comments = children.map(item => item.data);
-        dispatch(commentsRequestSuccess({post, comments}));
-      },
+    .then((
+        {
+          data:
+          [
+            {
+              data:
+                {
+                  children: [
+                    {
+                      data: post
+                    }
+                  ]
+                }
+            }, {
+              data: {children}
+            }
+          ]
+        }
+    ) => {
+      const comments = children.map(item => item.data);
+      dispatch(commentsRequestSuccess({post, comments}));
+    },
     )
     .catch((err) => {
       dispatch(commentsRequestError(err));

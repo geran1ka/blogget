@@ -7,7 +7,6 @@ export const usePosts = () => {
   const token = useSelector(state => state.token.token);
   const dispatch = useDispatch();
   const loading = useSelector(state => state.posts.loading);
-  console.log('loading: ', loading);
   const posts = useSelector(state => state.posts.posts);
 
   useEffect(() => {

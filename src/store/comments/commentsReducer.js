@@ -2,10 +2,11 @@ import {
   COMMENTS_REQUEST,
   COMMENTS_REQUEST_ERROR,
   COMMENTS_REQUEST_SUCCESS,
+  COMMENTS_UPDATE,
 } from './commentsAction';
 
 const initialState = {
-  // comment: 'Привет Redux',
+  comment: 'Привет Redux',
   post: {},
   comments: [],
   status: '',
@@ -18,6 +19,7 @@ export const commentsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
+        comments: [],
         status: 'loading',
       };
     case COMMENTS_REQUEST_SUCCESS:
@@ -27,6 +29,11 @@ export const commentsReducer = (state = initialState, action) => {
         comments: action.comments,
         error: '',
         status: 'loaded',
+      };
+    case COMMENTS_UPDATE:
+      return {
+        ...state,
+        comment: action.comment,
       };
     case COMMENTS_REQUEST_ERROR:
       return {

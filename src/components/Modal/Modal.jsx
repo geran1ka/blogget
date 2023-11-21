@@ -10,17 +10,13 @@ import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
 
 export const Modal = ({id, closeModal}) => {
-  console.log('id: ', id);
   const overlayRef = useRef(null);
-  const [comments, post] = useCommentsData(id);
-  console.log('post: ', post);
-  console.log('comments: ', comments);
-
+  const [post, comments] = useCommentsData(id);
   const hadleClick = (e) => {
     const target = e.target;
     if (
       target === overlayRef.current ||
-        target.closest('path') ||
+        target.closest('svg') ||
         e.keyCode === 27
     ) {
       closeModal();

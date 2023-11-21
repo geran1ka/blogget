@@ -1,13 +1,13 @@
 import React, {useRef, useState} from 'react';
 import style from './FormComment.module.css';
 import {Text} from '../../../UI/Text/Text';
-// import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useAuth} from '../../../hooks/useAuth';
+import {commentsUpdate} from '../../../store/comments/commentsAction';
 
 export const FormComment = () => {
-  // const value = useSelector(state => state.comment.comment);
-  // const dispatch = useDispatch();
-  const value = 'Привет';
+  const comment = useSelector(state => state.comments.comment);
+  const dispatch = useDispatch();
   const [auth] = useAuth();
 
   const textareaRef = useRef(null);
@@ -25,7 +25,7 @@ export const FormComment = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    dispatch(commentsUpdate(e.target.value));
   };
 
   return (
@@ -35,7 +35,7 @@ export const FormComment = () => {
       <Text As='h3' size={14} tsize={18}>
         {auth.name}
       </Text>
-      <textarea className={style.textarea} onChange={handleChange} ref={textareaRef} value={value}></textarea>
+      <textarea className={style.textarea} onChange={handleChange} ref={textareaRef} value={comment}></textarea>
     </>
       }
       <button className={style.btn} onClick={isFormCommentOpen ? handleSubmit : handleOpen}>

@@ -8,11 +8,13 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const auth = useSelector(state => state.auth.data);
+  const error = useSelector(state => state.auth.error);
+
   useEffect(() => {
     dispatch(authRequestAsync());
   }, [token]);
 
   const clearAuth = () => dispatch(authLogout());
 
-  return [auth, loading, clearAuth];
+  return [auth, loading, clearAuth, error];
 };

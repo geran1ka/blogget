@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import style from './Auth.module.css';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
@@ -7,12 +7,17 @@ import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
 import AuthLoader from '../../../UI/AuthLoader';
+import {ErrorAuth} from './ErrorAuth/ErrorAuth';
 
 export const Auth = () => {
   const dispatch = useDispatch();
-
+  const [authError, setAuthError] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const [auth, loading, clearAuth] = useAuth();
+
+  const [auth, loading, clearAuth, error] = useAuth();
+  useEffect(() => {
+    if (error) setAuthError(true);
+  }, [error]);
 
   const getOut = () => {
     setShowLogout(!showLogout);
@@ -44,6 +49,10 @@ export const Auth = () => {
     )}
       { showLogout &&
         < button className={style.logout} onClick={logOut} >Выйти</button> }
+      {authError && <ErrorAuth error={error} closePopup={() => {
+        setAuthError(false);
+      }}/>}
+
     </div>
   );
 };

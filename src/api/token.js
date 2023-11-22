@@ -8,7 +8,7 @@ export const getToken = () => {
     token = new URLSearchParams(location.hash.substring(1))
       .get('access_token');
     setToken(token);
-    setTimeout(() => window.location.assign(window.location.origin), 1000);
+    // setTimeout(() => window.location.assign(window.location.origin), 1000);
   }
   if (localStorage.getItem('bearer')) {
     token = localStorage.getItem('bearer');

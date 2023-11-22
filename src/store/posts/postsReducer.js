@@ -11,6 +11,7 @@ const initialState = {
   posts: [],
   error: '',
   after: '',
+  isLast: false,
 };
 
 export const postsReducer = (state = initialState, action) => {

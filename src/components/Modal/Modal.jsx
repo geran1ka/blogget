@@ -9,8 +9,11 @@ import {Text} from '../../UI/Text/Text';
 import {FormComment} from './FormComment/FormComment';
 import {Comments} from './Comments/Comments';
 import {PostLoader} from '../../UI/PostLoader/PostLoader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({id, closeModal}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const [post, comments, status] = useCommentsData(id);
   const hadleClick = (e) => {
@@ -20,7 +23,7 @@ export const Modal = ({id, closeModal}) => {
         target.closest('svg') ||
         e.keyCode === 27
     ) {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -56,7 +59,9 @@ export const Modal = ({id, closeModal}) => {
             <Text As='p' className={style.author}>{post?.author}</Text>
             <FormComment />
             <Comments comments={comments} />
-            <button className={style.close}>
+            <button className={style.close} onClick={() => {
+              navigate(`/category/${page}`);
+            }}>
               <CloseIcon />
             </button>
           </>

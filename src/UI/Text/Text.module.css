@@ -26,6 +26,10 @@
   color: var(--green);
 }
 
+.red {
+  color: red;
+}
+
 .white {
   color: var(--white);
 }

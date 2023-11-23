@@ -27,6 +27,7 @@ export const authLogout = () => ({
 
 export const authRequestAsync = () => (dispatch, getState) => {
   const token = getState().token.token;
+
   if (!token) return;
   dispatch(authRequest());
   axios(`${URL_API}/api/v1/me`, {

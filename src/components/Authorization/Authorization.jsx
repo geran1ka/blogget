@@ -10,7 +10,7 @@ export const Authorization = props => {
   useEffect(() => {
     setTimeout(() => {
       if (!error) {
-        navigate('/category/rising');
+        navigate('/');
       } else {
         navigate('/auth');
       }

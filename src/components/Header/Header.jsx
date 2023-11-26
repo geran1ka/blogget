@@ -9,15 +9,10 @@ import {useSelector} from 'react-redux';
 
 
 export const Header = () => {
-  console.log(window.location.pathname.slice(1));
   const page = useSelector(state => state.posts.page);
-  const getName = (page) => {
-    console.log(page);
+  const getName = (page = window.location.pathname.slice(1)) => {
     let text = '';
     switch (page) {
-      case 'rising':
-        text = 'Главная';
-        break;
       case 'top':
         text = 'Топ';
         break;
@@ -27,8 +22,11 @@ export const Header = () => {
       case 'hot':
         text = 'Горячие';
         break;
+      case 'auth':
+        text = 'Авторизация';
+        break;
       default:
-        text = 'Старт';
+        text = 'Главная';
     }
     return text;
   };

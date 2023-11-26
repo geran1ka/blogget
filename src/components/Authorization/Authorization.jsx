@@ -1,17 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './Authorization.module.css';
 import {Text} from '../../UI/Text';
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
-export const Authorization = props => (
-  <div className={style.start}>
-    <Text
-      As='h2'
-      size={24}
-    >  Вы успешно авторизовались на сайте</Text>
+export const Authorization = props => {
+  const navigate = useNavigate();
+  const error = useSelector(state => state.auth.error);
+  useEffect(() => {
+    setTimeout(() => {
+      if (!error) {
+        navigate('/category/rising');
+      } else {
+        navigate('/auth');
+      }
+    }, 500);
+  }, [error]);
 
-    <Text
-      As='p'
-      size={20}
-    > Через 5 секунд вы будете перемещены на главную страницу или выбирете категорию </Text>
-  </div>
-);
+  return (
+    <div className={style.start}>
+      <Text
+        As='h2'
+        size={24}
+      >
+        {error && error.response.status}
+      </Text>
+
+      <Text
+        As='p'
+        size={20}
+      >
+        {error &&
+          error.response.statusText || error.message || 'Ошибка при авторизации!'}
+      </Text>
+    </div>
+  );
+};

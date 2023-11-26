@@ -13,6 +13,7 @@ const initialState = {
   error: '',
   after: '',
   isLast: false,
+  countLoadPage: 0,
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -31,6 +32,7 @@ export const postsReducer = (state = initialState, action) => {
         error: '',
         after: action.after,
         isLast: !action.after,
+
       };
     case POST_REQUEST_SUCCESS_AFTER:
       return {
@@ -40,6 +42,7 @@ export const postsReducer = (state = initialState, action) => {
         error: '',
         after: action.after,
         isLast: !action.after,
+        countLoadPage: action.countLoadPage,
       };
     case POST_REQUEST_ERROR:
       return {
@@ -53,6 +56,7 @@ export const postsReducer = (state = initialState, action) => {
         page: action.page,
         after: '',
         isLast: false,
+        countLoadPage: 0,
       };
     default:
       return state;

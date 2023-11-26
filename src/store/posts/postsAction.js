@@ -17,10 +17,11 @@ export const postRequestSuccess = (data) => ({
   after: data.after,
 });
 
-export const postRequestSuccessAfter = (data) => ({
+export const postRequestSuccessAfter = (data, countLoadPage) => ({
   type: POST_REQUEST_SUCCESS_AFTER,
   posts: data.children,
   after: data.after,
+  countLoadPage,
 });
 
 export const postRequestError = (error) => ({
@@ -31,6 +32,7 @@ export const postRequestError = (error) => ({
 export const changePage = (page) => ({
   type: CHANGE_PAGE,
   page,
+  countLoadPage: 0
 });
 
 export const postRequestAsync = (newPage) => (dispatch, getState) => {
@@ -44,7 +46,7 @@ export const postRequestAsync = (newPage) => (dispatch, getState) => {
   const after = getState().posts.after;
   const loading = getState().posts.loading;
   const isLast = getState().posts.isLast;
-
+  let countLoadPage = getState().posts.countLoadPage;
 
   if (!token || loading || isLast) return;
   dispatch(postRequest());
@@ -55,7 +57,7 @@ export const postRequestAsync = (newPage) => (dispatch, getState) => {
   })
     .then(({data}) => {
       if (after) {
-        dispatch(postRequestSuccessAfter(data.data));
+        dispatch(postRequestSuccessAfter(data.data, ++countLoadPage));
       } else {
         dispatch(postRequestSuccess(data.data));
       }

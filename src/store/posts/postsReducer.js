@@ -14,6 +14,7 @@ const initialState = {
   after: '',
   isLast: false,
   countLoadPage: 0,
+  page: '',
 };
 
 export const postsReducer = (state = initialState, action) => {

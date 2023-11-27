@@ -8,15 +8,18 @@ import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
 import AuthLoader from '../../../UI/AuthLoader';
 import {ErrorAuth} from './ErrorAuth/ErrorAuth';
+import {useNavigate} from 'react-router-dom';
 
 export const Auth = () => {
   const dispatch = useDispatch();
   const [authError, setAuthError] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
+  const navigate = useNavigate();
 
   const [auth, loading, clearAuth, error] = useAuth();
   useEffect(() => {
     if (error) setAuthError(true);
+    navigate('/');
   }, [error]);
 
   const getOut = () => {

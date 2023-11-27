@@ -22,7 +22,7 @@ const LIST = [
 export const Tabs = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isDropDown, setIsDropDown] = useState(true);
-  const [itemName, setItemName] = useState('Стартовая страница');
+  const [itemName, setItemName] = useState('Главная');
   const navigate = useNavigate();
 
   const hadleResize = () => {

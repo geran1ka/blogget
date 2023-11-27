@@ -3,10 +3,11 @@ import style from './FormComment.module.css';
 import {Text} from '../../../UI/Text/Text';
 import {useDispatch, useSelector} from 'react-redux';
 import {useAuth} from '../../../hooks/useAuth';
-import {commentsUpdate} from '../../../store/comments/commentsAction';
+import {commentReset, commentUpdate} from '../../../store/comment/commentAction';
 
 export const FormComment = () => {
-  const comment = useSelector(state => state.comments.comment);
+  const comment = useSelector(state => state.comment.comment);
+  console.log('comment: ', comment);
   const dispatch = useDispatch();
   const [auth] = useAuth();
 
@@ -22,10 +23,11 @@ export const FormComment = () => {
     e.preventDefault();
     console.log(textareaRef.current.value);
     setIsFormCommentOpen(false);
+    dispatch(commentReset(''));
   };
 
   const handleChange = (e) => {
-    dispatch(commentsUpdate(e.target.value));
+    dispatch(commentUpdate(e.target.value));
   };
 
   return (

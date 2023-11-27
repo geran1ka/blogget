@@ -7,7 +7,7 @@ export const useCommentsData = (id) => {
   const comments = useSelector(state => state.comments.comments);
   const status = useSelector(state => state.comments.status);
   const post = useSelector(state => state.comments.post);
-
+  const error = useSelector(state => state.comments.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,5 +15,5 @@ export const useCommentsData = (id) => {
   }, [token, id]);
 
 
-  return [post, comments, status];
+  return [post, comments, status, error];
 };

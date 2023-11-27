@@ -15,7 +15,7 @@ export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
   const overlayRef = useRef(null);
-  const [post, comments, status] = useCommentsData(id);
+  const [post, comments, status, error] = useCommentsData(id);
   const hadleClick = (e) => {
     const target = e.target;
     if (
@@ -40,7 +40,7 @@ export const Modal = () => {
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         {status === 'loading' && (<PostLoader />)}
-        {status === 'error' && 'Ошибка...'}
+        {status === 'error' && error.message}
         {status === 'loaded' && (
           <>
             <h2 className={style.title}>{post?.title}</h2><div className={style.content}>

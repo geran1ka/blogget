@@ -8,12 +8,14 @@ import {Outlet, useParams} from 'react-router-dom';
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
+  console.log('countLoadPage: ', countLoadPage);
   const endList = useRef(null);
   const dispatch = useDispatch();
 
   const [isLoad, setIsLoad] = useState(false);
 
   const {page} = useParams();
+  console.log('page: ', page);
   useEffect(() => {
     dispatch(postRequestAsync(page));
   }, [page]);

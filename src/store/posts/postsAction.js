@@ -36,12 +36,12 @@ export const postRequestAsync = (newPage) => (dispatch, getState) => {
 };
 
 export const postRequestAsync2 = createAsyncThunk(
-  'posts/fetch',
-  (newPage, {getState}) => {
+  'posts/fetchPosts',
+  (newPage, {getState, dispatch}) => {
     let page = getState().posts.page;
     if (newPage) {
       page = newPage;
-      // dispatch(postsSlice.actions.changePage(page));
+      dispatch(postsSlice.actions.changePage(page));
     }
 
     const token = getState().token.token;
@@ -57,16 +57,17 @@ export const postRequestAsync2 = createAsyncThunk(
     })
       .then(({data}) => {
         if (after) {
-          // dispatch(postsSlice.actions.postRequestSuccessAfter(data.data));
-          return data.data;
+          console.log('dataAf: ', data);
+
+          dispatch(postsSlice.actions.postRequestSuccessAfter(data.data));
         } else {
-          // dispatch(postsSlice.actions.postRequestSuccess(data.data));
-          return data.data;
+          console.log('data: ', data);
+
+          dispatch(postsSlice.actions.postRequestSuccess(data.data));
         }
       })
       .catch((error) => {
         console.error(error);
-        // dispatch(postsSlice.actions.postRequestError(error.toString()));
-        return {error: error.toString()};
+        dispatch(postsSlice.actions.postRequestError(error.toString()));
       });
   });

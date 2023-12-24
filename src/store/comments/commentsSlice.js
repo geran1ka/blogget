@@ -5,7 +5,7 @@ const initialState = {
   post: {},
   comments: [],
   status: '',
-  error: '',
+  error: null
 };
 
 export const commentsSlice = createSlice({

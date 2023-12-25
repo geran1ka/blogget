@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {postRequestAsync} from './postsAction';
 
 const initialState = {
-  loading: false,
   posts: [],
   error: null,
   after: '',
@@ -15,41 +15,33 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postRequest: (state) => {
-      state.error = '';
-      state.loading = true;
-      state.status = 'loading';
-    },
-    postRequestSuccess: (state, action) => {
-      state.posts = action.payload.children;
-      state.after = action.payload.after;
-      state.isLast = !action.payload.after;
-      state.error = '';
-      state.loading = false;
-      state.status = 'loaded';
-    },
-    postRequestSuccessAfter: (state, action) => {
-      state.posts = [...state.posts, ...action.payload.children];
-      state.after = action.payload.after;
-      state.isLast = !action.payload.after;
-      state.countLoadPage += 1;
-      state.error = '';
-      state.loading = false;
-      state.status = 'loaded';
-    },
-    postRequestError: (state, action) => {
-      state.error = action.error;
-      state.loading = false;
-      state.status = 'error';
-    },
-    changePage: (state, action) => {
-      state.countLoadPage = 0;
-      state.page = action.payload;
-      state.posts = [];
-      state.after = '';
-    }
+    // changePage: (state, action) => {
+    //   console.log(action);
+    //   state.countLoadPage = 0;
+    //   state.page = action.payload;
+    //   state.posts = [];
+    //   state.after = '';
+    // }
   },
+  extraReducers: builder => {
+    builder
+      .addCase(postRequestAsync.pending, (state) => {
+        state.error = '';
+        state.status = 'loading';
+      })
+      .addCase(postRequestAsync.fulfilled, (state, action) => {
+        state.posts = [...state.posts, ...action.payload.children];
+        state.after = action.payload.after;
+        state.isLast = !action.payload.after;
+        state.countLoadPage += 1;
+        state.error = '';
+        state.status = 'loaded';
+      })
+      .addCase(postRequestAsync.rejected, (state, action) => {
+        state.error = action.error;
+        state.status = 'error';
+      });
+  }
 });
-
 
 export default postsSlice.reducer;

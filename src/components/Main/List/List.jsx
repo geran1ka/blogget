@@ -7,6 +7,7 @@ import {Outlet, useParams} from 'react-router-dom';
 
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
+  console.log('posts: ', posts);
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
   const endList = useRef(null);
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export const List = () => {
 
   useEffect(() => {
     if (countLoadPage < 2) {
+      // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           dispatch(postRequestAsync());

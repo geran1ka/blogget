@@ -3,7 +3,7 @@ import {URL_API} from '../../api/const';
 import {postsSlice} from './postsSlice';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const postRequestAsync = (newPage) => (dispatch, getState) => {
+export const postRequestAsync2 = (newPage) => (dispatch, getState) => {
   let page = getState().posts.page;
   if (newPage) {
     page = newPage;
@@ -35,7 +35,7 @@ export const postRequestAsync = (newPage) => (dispatch, getState) => {
     });
 };
 
-export const postRequestAsync2 = createAsyncThunk(
+export const postRequestAsync = createAsyncThunk(
   'posts/fetchPosts',
   (newPage, {getState, dispatch}) => {
     let page = getState().posts.page;
@@ -46,28 +46,15 @@ export const postRequestAsync2 = createAsyncThunk(
 
     const token = getState().token.token;
     const after = getState().posts.after;
-    const loading = getState().posts.loading;
+    // const loading = getState().posts.loading;
     const isLast = getState().posts.isLast;
 
-    if (!token || loading || isLast) return;
+    if (!token || isLast) return;
     return axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
     })
-      .then(({data}) => {
-        if (after) {
-          console.log('dataAf: ', data);
-
-          dispatch(postsSlice.actions.postRequestSuccessAfter(data.data));
-        } else {
-          console.log('data: ', data);
-
-          dispatch(postsSlice.actions.postRequestSuccess(data.data));
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(postsSlice.actions.postRequestError(error.toString()));
-      });
+      .then(({data}) => data.data)
+      .catch((error) => ({error: error.toString()}));
   });

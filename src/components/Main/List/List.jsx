@@ -4,10 +4,10 @@ import Post from './Post';
 import {useDispatch, useSelector} from 'react-redux';
 import {postRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
+import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
-  console.log('posts: ', posts);
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
   const endList = useRef(null);
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const List = () => {
 
   const {page} = useParams();
   useEffect(() => {
-    dispatch(postRequestAsync(page));
+    dispatch(postsSlice.actions.changePage(page));
   }, [page]);
 
   useEffect(() => {

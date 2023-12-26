@@ -4,6 +4,7 @@ import Post from './Post';
 import {useDispatch, useSelector} from 'react-redux';
 import {postRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
+import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
@@ -16,7 +17,7 @@ export const List = () => {
 
   const {page} = useParams();
   useEffect(() => {
-    dispatch(postRequestAsync(page));
+    dispatch(postsSlice.actions.changePage(page));
   }, [page]);
 
   useEffect(() => {
@@ -28,10 +29,14 @@ export const List = () => {
 
   useEffect(() => {
     if (countLoadPage < 2) {
+      console.log('countLoadPage: ', countLoadPage);
+
       // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
+        console.log('entries: ', entries);
         if (entries[0].isIntersecting) {
           dispatch(postRequestAsync());
+          console.log('dispatch: ', dispatch);
         }
       }, {
         rootMargin: '100px',

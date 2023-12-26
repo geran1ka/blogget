@@ -41,20 +41,23 @@ export const postRequestAsync = createAsyncThunk(
     let page = getState().posts.page;
     if (newPage) {
       page = newPage;
-      dispatch(postsSlice.actions.changePage(page));
     }
 
     const token = getState().token.token;
     const after = getState().posts.after;
     // const loading = getState().posts.loading;
     const isLast = getState().posts.isLast;
-
+    console.log('do');
     if (!token || isLast) return;
+    console.log('axios');
     return axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },
     })
       .then(({data}) => data.data)
-      .catch((error) => ({error: error.toString()}));
+      .catch((error) => {
+        console.log('error: ', error);
+        ({error});
+      });
   });

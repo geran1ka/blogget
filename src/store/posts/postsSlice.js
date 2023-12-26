@@ -15,13 +15,13 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    // changePage: (state, action) => {
-    //   console.log(action);
-    //   state.countLoadPage = 0;
-    //   state.page = action.payload;
-    //   state.posts = [];
-    //   state.after = '';
-    // }
+    changePage: (state, action) => {
+      console.log(action);
+      state.countLoadPage = 0;
+      state.page = action.payload;
+      state.posts = [];
+      state.after = '';
+    }
   },
   extraReducers: builder => {
     builder

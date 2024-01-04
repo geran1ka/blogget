@@ -24,3 +24,24 @@ export const postRequestAsync = createAsyncThunk(
       .then(({data}) => data.data)
       .catch((error) => ({error: error.toString()}));
   });
+
+export const searchRequestAsync = createAsyncThunk(
+  'fetch/search',
+  (search, {getState}) => {
+    console.log('search: ', search);
+
+    const token = getState().token.token;
+    // const after = getState().posts.after;
+    // const isLast = getState().search.isLast;
+    console.log('a');
+    if (!token || !search) return;
+    console.log('ax');
+    return axios(`${URL_API}/search?q=${search}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+      .then(({data}) => data.data)
+      .catch((error) => ({error: error.toString()}));
+  }
+);

@@ -1,8 +1,9 @@
-import {takeLatest, put, select, call} from 'redux-saga/effects';
+// import {takeLatest, put, select, call} from 'redux-saga/effects';
 import {URL_API} from '../../api/const';
 import axios from 'axios';
 
 import {SEARCH_REQUEST, searchRequestError, searchRequestSuccess} from './searchAction';
+import {call, put, select, takeLatest} from '@redux-saga/core/effects';
 
 function* fetchSearch(action) {
   const token = yield select(state => state.token.token);

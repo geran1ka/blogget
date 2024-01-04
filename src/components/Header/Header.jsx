@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 
 export const Header = () => {
   const page = useSelector(state => state.posts.page);
+  console.log('page: ', page);
   const getName = (page = window.location.pathname.slice(1)) => {
     let text = '';
     switch (page) {
@@ -24,6 +25,9 @@ export const Header = () => {
         break;
       case 'auth':
         text = 'Авторизация';
+        break;
+      case 'search':
+        text = 'Поиск';
         break;
       default:
         text = 'Главная';

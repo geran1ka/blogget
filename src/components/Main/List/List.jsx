@@ -9,6 +9,7 @@ import {postsSlice} from '../../../store/posts/postsSlice';
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
+  const search = useSelector(state => state.posts.search);
   const endList = useRef(null);
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ export const List = () => {
         {(posts.map(({data}) => (<Post key={data.id} postData={data} />)))}
         <li ref={endList} className={style.end}/>
       </ul>
-      {countLoadPage >= 2 &&
+      {countLoadPage >= 2 && !search &&
         <button
           className={style.btnLoad}
           type='button'

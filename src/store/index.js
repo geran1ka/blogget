@@ -4,9 +4,10 @@ import postsReducer from './posts/postsSlice';
 import commentsReducer from './comments/commentsSlice';
 import {configureStore} from '@reduxjs/toolkit';
 import {commentReducer} from './comment/commentReducer';
-import {searchReducer} from './search/searchReducer';
+// import {searchReducer} from './search/searchReducer';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga';
+import searchReducer from './search/searchSlice';
 
 
 const sagaMiddleware = createSagaMiddleware();

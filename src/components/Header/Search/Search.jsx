@@ -7,6 +7,7 @@ import {searchRequest} from '../../../store/search/searchAction';
 export const Search = props => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
+  console.log('search: ', search);
   const handlerSubmit = e => {
     e.preventDefault();
     dispatch(searchRequest(search));

@@ -1,25 +1,30 @@
 import {takeLatest, put, select, call} from 'redux-saga/effects';
 import {URL_API} from '../../api/const';
 import axios from 'axios';
+import {searchSlice} from './searchSlice';
 
-import {SEARCH_REQUEST, searchRequestError, searchRequestSuccess} from './searchAction';
 
 function* fetchSearch(action) {
   const token = yield select(state => state.token.token);
+  const after = yield select(state => state.search.after);
+  const isLast = yield select(state => state.search.isLast);
+
+  if (!token || isLast) return;
 
   try {
-    const request = yield call(axios, `${URL_API}/search?q=${action.search}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    });
+    const request = yield call(axios,
+      `${URL_API}/search?q=${action.payload}&limit=10&${after ? `after=${after}` : ''}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
 
-    yield put(searchRequestSuccess(request.data.data));
+    yield put(searchSlice.actions.searchRequestSuccess(request.data.data));
   } catch (error) {
-    yield put(searchRequestError(error));
+    yield put(searchSlice.actions.searchRequestError(error));
   }
 }
 
 export function* watchSearch() {
-  yield takeLatest(SEARCH_REQUEST, fetchSearch);
+  yield takeLatest(searchSlice.actions.searchRequest, fetchSearch);
 }

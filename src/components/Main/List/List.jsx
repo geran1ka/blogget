@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import style from './List.module.css';
 import Post from './Post';
 import {useDispatch, useSelector} from 'react-redux';
-import {postRequestAsync} from '../../../store/posts/postsAction';
 import {Outlet, useParams} from 'react-router-dom';
 import {postsSlice} from '../../../store/posts/postsSlice';
 
@@ -21,7 +20,7 @@ export const List = () => {
 
   useEffect(() => {
     if (isLoad) {
-      dispatch(postRequestAsync());
+      dispatch(postsSlice.actions.postRequest());
       setIsLoad(false);
     }
   }, [isLoad]);
@@ -31,7 +30,7 @@ export const List = () => {
       // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          dispatch(postRequestAsync());
+          dispatch(postsSlice.actions.postRequest());
         }
       }, {
         rootMargin: '100px',

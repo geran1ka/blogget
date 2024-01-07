@@ -10,6 +10,8 @@ export const List = () => {
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
   const endList = useRef(null);
   const dispatch = useDispatch();
+  const search = useSelector(state => state.posts.search);
+  console.log('search: ', search);
 
   const [isLoad, setIsLoad] = useState(false);
 
@@ -20,6 +22,7 @@ export const List = () => {
 
   useEffect(() => {
     if (isLoad) {
+      console.log('isLoad');
       dispatch(postsSlice.actions.postRequest());
       setIsLoad(false);
     }
@@ -30,7 +33,15 @@ export const List = () => {
       // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          dispatch(postsSlice.actions.postRequest());
+          console.log('search: ', search);
+          if (search) {
+            console.log('postsSlice.actions.searchRequest(search): ');
+
+            dispatch(postsSlice.actions.searchRequest());
+          } else {
+            console.log('dispatch(postsSlice.actions.postRequest()');
+            dispatch(postsSlice.actions.postRequest());
+          }
         }
       }, {
         rootMargin: '100px',

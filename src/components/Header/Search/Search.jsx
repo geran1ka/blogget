@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import style from './Search.module.css';
 import {useDispatch} from 'react-redux';
-import {searchSlice} from '../../../store/search/searchSlice';
+import {postsSlice} from '../../../store/posts/postsSlice';
+import {useNavigate} from 'react-router-dom';
 
 
 export const Search = props => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
+  const navigate = useNavigate();
   const handlerSubmit = e => {
     e.preventDefault();
     console.log('search: ', search);
-    dispatch(searchSlice.actions.searchRequest(search));
+    dispatch(postsSlice.actions.searchRequest(search));
+    navigate(`/category/search`);
   };
 
   return (

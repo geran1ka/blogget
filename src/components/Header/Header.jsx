@@ -25,6 +25,9 @@ export const Header = () => {
       case 'auth':
         text = 'Авторизация';
         break;
+      case 'search':
+        text = 'Поиск';
+        break;
       default:
         text = 'Главная';
     }

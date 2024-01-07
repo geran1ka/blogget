@@ -11,7 +11,7 @@ function* fetchPosts(action) {
   }
 
   const token = yield select(state => state.token.token);
-  const after = yield select(state => state.posts.after);
+  const after = yield select(state => state.posts.afterPosts);
   const isLast = yield select(state => state.posts.isLast);
 
   if (!token || isLast) return;
@@ -22,11 +22,13 @@ function* fetchPosts(action) {
         Authorization: `bearer ${token}`,
       },
     });
-    if (after) {
-      yield put(postsSlice.actions.postRequestSuccessAfter(request.data.data));
-    } else {
-      yield put(postsSlice.actions.postRequestSuccess(request.data.data));
-    }
+    yield put(postsSlice.actions.postRequestSuccess(request.data.data));
+
+    // if (after) {
+    //   yield put(postsSlice.actions.postRequestSuccessAfter(request.data.data));
+    // } else {
+    //   yield put(postsSlice.actions.postRequestSuccess(request.data.data));
+    // }
   } catch (error) {
     yield put(postsSlice.actions.postRequestError(error));
   }

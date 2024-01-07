@@ -2,7 +2,7 @@ import {tokenReducer, tokenMiddleware} from './tokenReducer';
 import {authReducer} from './auth/authReducer';
 import postsReducer from './posts/postsSlice';
 import commentsReducer from './comments/commentsSlice';
-import searchReducer from './search/searchSlice';
+// import searchReducer from './search/searchSlice';
 import {configureStore} from '@reduxjs/toolkit';
 import {commentReducer} from './comment/commentReducer';
 import createSagaMiddleware from 'redux-saga';
@@ -19,7 +19,7 @@ export const store = configureStore({
     auth: authReducer,
     posts: postsReducer,
     comments: commentsReducer,
-    search: searchReducer,
+    // search: searchReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tokenMiddleware, sagaMiddleware),
 });

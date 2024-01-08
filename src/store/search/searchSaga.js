@@ -5,11 +5,6 @@ import {postsSlice} from '../posts/postsSlice';
 
 
 function* fetchSearch(action) {
-  let search = yield select(state => state.posts.search);
-  console.log('search fetchSearch: ', search);
-  if (action.payload) {
-    search = action.payload;
-  }
   const token = yield select(state => state.token.token);
   const after = yield select(state => state.posts.afterSearch);
   const isLast = yield select(state => state.posts.isLast);
@@ -19,7 +14,7 @@ function* fetchSearch(action) {
 
   try {
     const request = yield call(axios,
-      `${URL_API}/search?q=${search}&limit=10&${after ? `after=${after}` : ''}`, {
+      `${URL_API}/search?q=${action.payload}&limit=10&${after ? `after=${after}` : ''}`, {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -31,5 +26,5 @@ function* fetchSearch(action) {
 }
 
 export function* watchSearch() {
-  yield takeLatest(postsSlice.actions.searchRequest, fetchSearch);
+  yield takeLatest(postsSlice.actions.searchRequest.type, fetchSearch);
 }

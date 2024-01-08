@@ -8,38 +8,38 @@ import {postsSlice} from '../../../store/posts/postsSlice';
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
   const countLoadPage = useSelector(state => state.posts.countLoadPage);
+  const search = useSelector(state => state.posts.search);
+
   const endList = useRef(null);
   const dispatch = useDispatch();
-  const search = useSelector(state => state.posts.search);
-  console.log('search: ', search);
 
   const [isLoad, setIsLoad] = useState(false);
 
   const {page} = useParams();
   useEffect(() => {
     dispatch(postsSlice.actions.changePage(page));
-  }, [page]);
+  }, [dispatch, page]);
 
   useEffect(() => {
+    console.log('isLoad: ', isLoad);
+
     if (isLoad) {
-      console.log('isLoad');
       dispatch(postsSlice.actions.postRequest());
       setIsLoad(false);
     }
-  }, [isLoad]);
+  }, [dispatch, isLoad]);
 
   useEffect(() => {
     if (countLoadPage < 2) {
       // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          console.log('search: ', search);
-          if (search) {
-            console.log('postsSlice.actions.searchRequest(search): ');
+        console.log('search: ', search);
+        console.log('entries[0].isIntersecting: ', entries[0].isIntersecting);
 
-            dispatch(postsSlice.actions.searchRequest());
+        if (entries[0].isIntersecting) {
+          if (search) {
+            dispatch(postsSlice.actions.searchRequest(search));
           } else {
-            console.log('dispatch(postsSlice.actions.postRequest()');
             dispatch(postsSlice.actions.postRequest());
           }
         }
@@ -55,7 +55,7 @@ export const List = () => {
         }
       };
     }
-  }, [endList.current, countLoadPage]);
+  }, [dispatch, search, endList.current, countLoadPage]);
   return (
     <div className={style.flexContainer}>
       <ul className={style.list}>

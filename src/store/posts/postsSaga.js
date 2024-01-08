@@ -9,12 +9,15 @@ function* fetchPosts(action) {
   if (action.payload) {
     page = action.payload;
   }
+  console.log('page: ', page);
 
   const token = yield select(state => state.token.token);
+  console.log('token: ', token);
   const after = yield select(state => state.posts.afterPosts);
   const isLast = yield select(state => state.posts.isLast);
+  console.log('isLast: ', isLast);
 
-  if (!token || isLast) return;
+  if (!token || isLast || page === 'search') return;
 
   try {
     const request = yield call(axios, `${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
@@ -35,5 +38,7 @@ function* fetchPosts(action) {
 }
 
 export function* watchPosts() {
-  yield takeLatest(postsSlice.actions.postRequest, fetchPosts);
+  console.log('postsSlice.actions.postRequest: ', postsSlice.actions.postRequest);
+
+  yield takeLatest(postsSlice.actions.postRequest.type, fetchPosts);
 }

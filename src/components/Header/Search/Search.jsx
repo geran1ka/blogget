@@ -12,8 +12,9 @@ export const Search = props => {
   const handlerSubmit = e => {
     e.preventDefault();
     console.log('search: ', search);
-    dispatch(postsSlice.actions.searchRequest(search));
     navigate(`/category/search`);
+    dispatch(postsSlice.actions.searchRequest(search));
+    setSearch('');
   };
 
   return (

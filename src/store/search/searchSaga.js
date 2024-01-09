@@ -14,7 +14,7 @@ function* fetchSearch(action) {
 
   try {
     const request = yield call(axios,
-      `${URL_API}/search?q=${action.payload}&limit=10&${after ? `after=${after}` : ''}`, {
+      `${URL_API}/search?q=${action.payload}&limit=20&${after ? `after=${after}` : ''}`, {
         headers: {
           Authorization: `bearer ${token}`,
         },

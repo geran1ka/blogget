@@ -17,7 +17,7 @@ function* fetchPosts(action) {
   if (!token || isLast || page === 'search') return;
 
   try {
-    const request = yield call(axios, `${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
+    const request = yield call(axios, `${URL_API}/${page}?limit=20&${after ? `after=${after}` : ''}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

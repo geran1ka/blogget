@@ -30,7 +30,5 @@ function* fetchPosts(action) {
 }
 
 export function* watchPosts() {
-  console.log('postsSlice.actions.postRequest: ', postsSlice.actions.postRequest);
-
   yield takeLatest(postsSlice.actions.postRequest.type, fetchPosts);
 }

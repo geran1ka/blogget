@@ -21,7 +21,6 @@ export const postsSlice = createSlice({
       state.error = '';
       state.loading = true;
       state.status = 'loading';
-      console.log(' state.search: ', state.search);
     },
     postRequestSuccess: (state, action) => {
       if (state.afterPosts) {
@@ -35,7 +34,6 @@ export const postsSlice = createSlice({
       state.error = '';
       state.loading = false;
       state.status = 'loaded';
-      console.log(' state.search: ', state.search);
     },
     postRequestError: (state, action) => {
       state.error = action.error;

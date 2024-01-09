@@ -11,7 +11,6 @@ export const Search = props => {
   const navigate = useNavigate();
   const handlerSubmit = e => {
     e.preventDefault();
-    console.log('search: ', search);
     navigate(`/category/search`);
     dispatch(postsSlice.actions.searchRequest(search));
     setSearch('');

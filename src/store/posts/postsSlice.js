@@ -45,16 +45,11 @@ export const postsSlice = createSlice({
     searchRequest: (state, action) => {
       state.error = '';
       state.status = 'loading';
-
       if (action.payload) {
-        console.log(action);
         state.search = action.payload;
-        console.log(' state.search: ', state.search);
       }
-      console.log(' state.search: ', state.search);
     },
     searchRequestSuccess: (state, action) => {
-      console.log('action: ', action);
       if (action.payload) {
         if (state.afterSearch) {
           state.posts = [...state.posts, ...action.payload.children];
@@ -67,7 +62,6 @@ export const postsSlice = createSlice({
         state.isLast = !action.payload.after;
         state.error = '';
         state.status = 'loaded';
-        console.log(' state.search: ', state.search);
       }
     },
     searchRequestError: (state, action) => {
@@ -85,7 +79,6 @@ export const postsSlice = createSlice({
       if (action.payload !== 'search') {
         state.search = '';
       }
-      console.log(' state.search: ', state.search);
     }
   },
 });

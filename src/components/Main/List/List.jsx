@@ -21,8 +21,6 @@ export const List = () => {
   }, [dispatch, page]);
 
   useEffect(() => {
-    console.log('isLoad: ', isLoad);
-
     if (isLoad) {
       dispatch(postsSlice.actions.postRequest());
       setIsLoad(false);
@@ -33,9 +31,6 @@ export const List = () => {
     if (countLoadPage < 2) {
       // eslint-disable-next-line space-unary-ops
       const observer = new IntersectionObserver((entries) => {
-        console.log('search: ', search);
-        console.log('entries[0].isIntersecting: ', entries[0].isIntersecting);
-
         if (entries[0].isIntersecting) {
           if (search) {
             dispatch(postsSlice.actions.searchRequest(search));

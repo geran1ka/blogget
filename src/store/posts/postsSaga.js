@@ -9,13 +9,10 @@ function* fetchPosts(action) {
   if (action.payload) {
     page = action.payload;
   }
-  console.log('page: ', page);
 
   const token = yield select(state => state.token.token);
-  console.log('token: ', token);
   const after = yield select(state => state.posts.afterPosts);
   const isLast = yield select(state => state.posts.isLast);
-  console.log('isLast: ', isLast);
 
   if (!token || isLast || page === 'search') return;
 
@@ -25,13 +22,8 @@ function* fetchPosts(action) {
         Authorization: `bearer ${token}`,
       },
     });
-    yield put(postsSlice.actions.postRequestSuccess(request.data.data));
 
-    // if (after) {
-    //   yield put(postsSlice.actions.postRequestSuccessAfter(request.data.data));
-    // } else {
-    //   yield put(postsSlice.actions.postRequestSuccess(request.data.data));
-    // }
+    yield put(postsSlice.actions.postRequestSuccess(request.data.data));
   } catch (error) {
     yield put(postsSlice.actions.postRequestError(error));
   }

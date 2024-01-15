@@ -1,13 +1,9 @@
-import {
-  AUTH_LOGOUT,
-  AUTH_REQUEST,
-  AUTH_REQUEST_ERROR,
-  AUTH_REQUEST_SUCCESS} from './authAction';
+import { AUTH_LOGOUT, AUTH_REQUEST, AUTH_REQUEST_ERROR, AUTH_REQUEST_SUCCESS } from "./authAction";
 
 const initialState = {
   loading: false,
   data: {},
-  error: '',
+  error: "",
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -16,14 +12,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: '',
+        error: "",
       };
     case AUTH_REQUEST_SUCCESS:
       return {
         ...state,
         loading: false,
         data: action.data,
-        error: ''
+        error: "",
       };
     case AUTH_REQUEST_ERROR:
       return {
@@ -41,4 +37,3 @@ export const authReducer = (state = initialState, action) => {
       return state;
   }
 };
-

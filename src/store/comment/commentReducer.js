@@ -1,7 +1,7 @@
-import {COMMENT_UPDATE} from './commentAction';
+import { COMMENT_UPDATE } from "./commentAction";
 
 const initialState = {
-  comment: 'Привет Redu',
+  comment: "Привет Redu",
 };
 
 export const commentReducer = (state = initialState, action) => {

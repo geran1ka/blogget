@@ -1,2 +1,2 @@
-import {ErrorAuth} from './ErrorAuth';
+import { ErrorAuth } from "./ErrorAuth";
 export default ErrorAuth;

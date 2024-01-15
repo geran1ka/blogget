@@ -1,23 +1,22 @@
-import axios from 'axios';
-import {call, put, select, takeLatest} from 'redux-saga/effects';
-import {postsSlice} from './postsSlice';
-import {URL_API} from '../../api/const';
-
+import axios from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { postsSlice } from "./postsSlice";
+import { URL_API } from "../../api/const";
 
 function* fetchPosts(action) {
-  let page = yield select(state => state.posts.page);
+  let page = yield select((state) => state.posts.page);
   if (action.payload) {
     page = action.payload;
   }
 
-  const token = yield select(state => state.token.token);
-  const after = yield select(state => state.posts.afterPosts);
-  const isLast = yield select(state => state.posts.isLast);
+  const token = yield select((state) => state.token.token);
+  const after = yield select((state) => state.posts.afterPosts);
+  const isLast = yield select((state) => state.posts.isLast);
 
-  if (!token || isLast || page === 'search') return;
+  if (!token || isLast || page === "search") return;
 
   try {
-    const request = yield call(axios, `${URL_API}/${page}?limit=20&${after ? `after=${after}` : ''}`, {
+    const request = yield call(axios, `${URL_API}/${page}?limit=20&${after ? `after=${after}` : ""}`, {
       headers: {
         Authorization: `bearer ${token}`,
       },

@@ -1,2 +1,2 @@
-import {BtnDel} from './BtnDel';
+import { BtnDel } from "./BtnDel";
 export default BtnDel;

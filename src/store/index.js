@@ -1,16 +1,14 @@
-import {tokenReducer, tokenMiddleware} from './tokenReducer';
-import {authReducer} from './auth/authReducer';
-import postsReducer from './posts/postsSlice';
-import commentsReducer from './comments/commentsSlice';
+import { tokenReducer, tokenMiddleware } from "./tokenReducer";
+import { authReducer } from "./auth/authReducer";
+import postsReducer from "./posts/postsSlice";
+import commentsReducer from "./comments/commentsSlice";
 // import searchReducer from './search/searchSlice';
-import {configureStore} from '@reduxjs/toolkit';
-import {commentReducer} from './comment/commentReducer';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './saga';
-
+import { configureStore } from "@reduxjs/toolkit";
+import { commentReducer } from "./comment/commentReducer";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware();
-
 
 export const store = configureStore({
   reducer: {

@@ -1,21 +1,21 @@
-import React, {useEffect, useRef, useState} from 'react';
-import style from './List.module.css';
-import Post from './Post';
-import {useDispatch, useSelector} from 'react-redux';
-import {Outlet, useParams} from 'react-router-dom';
-import {postsSlice} from '../../../store/posts/postsSlice';
+import { useEffect, useRef, useState } from "react";
+import style from "./List.module.css";
+import Post from "./Post";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useParams } from "react-router-dom";
+import { postsSlice } from "../../../store/posts/postsSlice";
 
 export const List = () => {
-  const posts = useSelector(state => state.posts.posts);
-  const countLoadPage = useSelector(state => state.posts.countLoadPage);
-  const search = useSelector(state => state.posts.search);
+  const posts = useSelector((state) => state.posts.posts);
+  const countLoadPage = useSelector((state) => state.posts.countLoadPage);
+  const search = useSelector((state) => state.posts.search);
 
   const endList = useRef(null);
   const dispatch = useDispatch();
 
   const [isLoad, setIsLoad] = useState(false);
 
-  const {page} = useParams();
+  const { page } = useParams();
   useEffect(() => {
     dispatch(postsSlice.actions.changePage(page));
   }, [dispatch, page]);
@@ -30,17 +30,20 @@ export const List = () => {
   useEffect(() => {
     if (countLoadPage < 2) {
       // eslint-disable-next-line space-unary-ops
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          if (search) {
-            dispatch(postsSlice.actions.searchRequest(search));
-          } else {
-            dispatch(postsSlice.actions.postRequest());
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            if (search) {
+              dispatch(postsSlice.actions.searchRequest(search));
+            } else {
+              dispatch(postsSlice.actions.postRequest());
+            }
           }
-        }
-      }, {
-        rootMargin: '100px',
-      });
+        },
+        {
+          rootMargin: "100px",
+        },
+      );
 
       observer.observe(endList.current);
 
@@ -54,15 +57,17 @@ export const List = () => {
   return (
     <div className={style.flexContainer}>
       <ul className={style.list}>
-        {(posts.map(({data}) => (<Post key={data.id} postData={data} />)))}
-        <li ref={endList} className={style.end}/>
+        {posts.map(({ data }) => (
+          <Post key={data.id} postData={data} />
+        ))}
+        <li ref={endList} className={style.end} />
       </ul>
-      {countLoadPage >= 2 &&
-        <button
-          className={style.btnLoad}
-          type='button'
-          onClick={() => setIsLoad(true)}
-        > Загрузить еще</button>}
+      {countLoadPage >= 2 && (
+        <button className={style.btnLoad} type="button" onClick={() => setIsLoad(true)}>
+          {" "}
+          Загрузить еще
+        </button>
+      )}
       <Outlet />
     </div>
   );

@@ -1,6 +1,3 @@
-import React from 'react';
-import ScaleLoader from 'react-spinners/ScaleLoader';
+import ScaleLoader from "react-spinners/ScaleLoader";
 
-export const AuthLoader = props => (
-  <ScaleLoader color='green' css={{display: 'block'}} size={30} />
-);
+export const AuthLoader = (props) => <ScaleLoader color="green" css={{ display: "block" }} size={30} />;

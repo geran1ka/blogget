@@ -1,2 +1,2 @@
-import {PostLoader} from './PostLoader';
+import { PostLoader } from "./PostLoader";
 export default PostLoader;

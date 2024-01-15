@@ -1,9 +1,8 @@
-import React from 'react';
-import style from './BtnDel.module.css';
-import {ReactComponent as Delete} from './img/delete.svg';
+import { SVG } from "../../../../../UI/SVG/SVG";
+import style from "./BtnDel.module.css";
 
 export const BtnDel = () => (
-  <button className={style.delete} >
-    <Delete />
+  <button className={style.delete}>
+    <SVG iconName="delete" />
   </button>
 );
